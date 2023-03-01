@@ -8,6 +8,7 @@ public class ArithMain
     {
         if (isSimple(equation)) answer = new BasicArith(equation).getAnswer();
         else if (isComparison(equation)) answer = new CompareArith(equation).getAnswer();
+        else if (isLogical(equation)) answer = new LogicArith().getAnswer();
 
     }
 
@@ -43,6 +44,23 @@ public class ArithMain
             || equation[i].equals("?"))
             {
                 isIt = false;
+                break;
+            }
+        }
+
+        return isIt;
+    }
+
+    private boolean isLogical(String[] equation)
+    {
+        boolean isIt = false;
+
+        for (int i = 0; i < equation.length; i++)
+        {
+            if (equation[i].equals("&&") || equation[i].equals("==") || equation[i].equals("||")
+            || equation[i].equals("?"))
+            {
+                isIt = true;
                 break;
             }
         }

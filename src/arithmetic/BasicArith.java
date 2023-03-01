@@ -128,6 +128,12 @@ public class BasicArith
                         }
                     }
 
+                    else if (new Predefinitions().isTrig(equation[i]))
+                    {
+                        numbers.add(new Trigonometry(equation[i], Double.parseDouble(equation[i+1])).getResult());
+                        i++;
+                    }
+
                 }
             }
         }

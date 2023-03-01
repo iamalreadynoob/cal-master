@@ -1,6 +1,7 @@
 package visualize;
 
 import arithmetic.ArithMain;
+import arithmetic.Trigonometry;
 import basicTools.Parser;
 import basicTools.Predefinitions;
 
@@ -37,31 +38,40 @@ public class Buttons
     {
         String[] parsed = new Parser(output).parse().toArray(new String[0]);
 
+        boolean operated = false;
         for (int i = 0; i < parsed.length; i++)
         {
-
-            if (new Predefinitions().isOperator(parsed[i]))
-            {
+            if (new Predefinitions().isOperator(parsed[i])) {
                 Screen.outputField.setText(new ArithMain(parsed).getAnswer());
+                operated = true;
                 break;
             }
+        }
 
-            else if (new Predefinitions().isTrig(parsed[i]))
-            {
+        if (!operated)
+        {
 
-            }
+        if (new Predefinitions().isTrig(parsed[0]))
+        {
+            double answer = new Trigonometry(parsed[0], Double.parseDouble(parsed[1])).getResult();
 
-            else if (new Predefinitions().isArithComm(parsed[i]))
-            {
+            if (answer - Math.round(answer) < 0.0000001) Screen.outputField.setText(Integer.toString((int)Math.round(answer)));
+            else Screen.outputField.setText(Double.toString(answer));
+        }
 
-            }
+        else if (new Predefinitions().isConstant(parsed[0]))
+        {
+            Screen.outputField.setText(Double.toString(new Predefinitions().getConstants().get(parsed[0])));
+        }
 
-            else if (new Predefinitions().isConstant(parsed[i]))
-            {
-
-            }
+        else if (new Predefinitions().isArithComm(parsed[0]))
+        {
 
         }
+        }
+
+
+
 
     }
 
