@@ -24,10 +24,12 @@ public class CompareArith
 
     private void observe(String[] equation)
     {
-        if (equation[0] != "<" && equation[0] != ">" && equation[0] != "=" && equation[0] != "<="
-        && equation[0] != ">=" && equation[equation.length-1] != "<" && equation[equation.length-1] != ">"
-        && equation[equation.length-1] != "=" && equation[equation.length-1] != "<=" &&
-        equation[equation.length-1] != ">=")
+        if (equation[0].equals("<") || equation[0].equals(">") || equation[0].equals("=")
+        || equation[0].equals("<=") || equation[0].equals(">=") || equation[equation.length-1].equals("<")
+        || equation[equation.length-1].equals(">") || equation[equation.length-1].equals("=")
+        || equation[equation.length-1].equals("<=") || equation[equation.length-1].equals(">="))
+        {}
+        else
         {
             for (int i = 1; i < equation.length; i++)
             {

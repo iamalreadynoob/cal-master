@@ -8,7 +8,7 @@ public class ArithMain
     {
         if (isSimple(equation)) answer = new BasicArith(equation).getAnswer();
         else if (isComparison(equation)) answer = new CompareArith(equation).getAnswer();
-        else if (isLogical(equation)) answer = new LogicArith().getAnswer();
+        else if (isLogical(equation)) answer = new LogicArith(equation).getAnswer();
 
     }
 

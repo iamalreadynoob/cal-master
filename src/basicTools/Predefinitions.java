@@ -14,7 +14,7 @@ public class Predefinitions
     {
         operators = new ArrayList<>(Arrays.asList("+", "-", "*", "/", "(", ")", "&&", "%", "#", "^", "=", "==", "<", ">", "<=", ">=", "||", "?", "!"));
         trig = new ArrayList<>(Arrays.asList("sin", "cos", "tan", "cot", "sec", "csc", "arcsin", "arccos", "arctan", "arccot", "arcsec", "arccsc"));
-        arithComm = new ArrayList<>(Arrays.asList("sum", "subtract", "times", "divide", "over"));
+        arithComm = new ArrayList<>(Arrays.asList("sum", "find"));
 
         constants = new HashMap<>();
         constants.put("pi", 3.141592);

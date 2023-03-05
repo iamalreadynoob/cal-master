@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class BasicArith
 {
     String answer;
-    protected BasicArith(String[] equation)
+    public BasicArith(String[] equation)
     {
         ArrayList<String> symbols = new ArrayList<>();
         ArrayList<Double> numbers = new ArrayList<>();
@@ -225,7 +225,7 @@ public class BasicArith
         else answer = Double.toString(result);
     }
 
-    protected String getAnswer() {return answer;}
+    public String getAnswer() {return answer;}
 
     protected Double exponenter(String term)
     {
