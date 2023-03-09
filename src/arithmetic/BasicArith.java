@@ -15,7 +15,7 @@ public class BasicArith
             ArrayList<Double> numbers = new ArrayList<>();
             int remain;
 
-            if (equation[0].equals("-"))
+            if (equation[0].equals("-") || equation[0].equals("+"))
             {
                 remain = 0;
             }

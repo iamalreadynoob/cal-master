@@ -1,5 +1,6 @@
 package finder;
 
+import arithmetic.ArithMain;
 import arithmetic.BasicArith;
 import java.util.ArrayList;
 
@@ -28,8 +29,8 @@ public class PolynomialFind
             else if (roots.size() == 1) answer = Double.toString(roots.get(0));
             else
             {
-                answer = Double.toString(roots.get(0)) + " - ";
-                for (int i = 0; i < roots.size() - 1; i++) answer += Double.toString(roots.get(i)) + " - ";
+                answer = Double.toString(roots.get(0)) + " , ";
+                for (int i = 1; i < roots.size() - 1; i++) answer += Double.toString(roots.get(i)) + " , ";
                 answer += Double.toString(roots.get(roots.size()-1));
             }
         }
@@ -126,7 +127,6 @@ public class PolynomialFind
                         break;
                     }
                 }
-                System.out.println(coefficients);
 
                 if (!coefficients.isEmpty())
                 {
@@ -307,11 +307,10 @@ public class PolynomialFind
                     temp.set(j, Double.toString(possibilities.get(i)));
                 }
             }
-            // TODO: find the problem
+
             String[] eq = new String[temp.size()];
             for (int j = 0; j < temp.size(); j++) eq[j] = temp.get(j);
-            System.out.println(new BasicArith(eq).getAnswer());
-            if (new BasicArith(eq).getAnswer().equals("0")) provided.add(possibilities.get(i));
+            if (new ArithMain(eq).getAnswer().equals("0")) provided.add(possibilities.get(i));
         }
 
         return provided;
