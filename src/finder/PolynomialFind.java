@@ -1,8 +1,6 @@
 package finder;
 
 import arithmetic.BasicArith;
-
-import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class PolynomialFind
@@ -23,13 +21,17 @@ public class PolynomialFind
 
         if (isSuitable())
         {
-            double p = getP();
-            double q = getQ();
-            ArrayList<Integer> factorizedP = factorize((int) Math.abs(p));
-            ArrayList<Integer> factorizedQ = factorize((int) Math.abs(q));
+            ArrayList<Double> possibilities = getPossibilities(factorize((int)getP()), factorize((int) getQ()));
+            ArrayList<Double> roots = test(possibilities);
 
-            System.out.println(factorizedP);
-            System.out.println(factorizedQ);
+            if (roots.isEmpty()) answer = "no real root";
+            else if (roots.size() == 1) answer = Double.toString(roots.get(0));
+            else
+            {
+                answer = Double.toString(roots.get(0)) + " - ";
+                for (int i = 0; i < roots.size() - 1; i++) answer += Double.toString(roots.get(i)) + " - ";
+                answer += Double.toString(roots.get(roots.size()-1));
+            }
         }
     }
 
@@ -211,6 +213,7 @@ public class PolynomialFind
             }
         }
 
+        if (p < 0) p *= -1;
         return p;
     }
 
@@ -233,35 +236,35 @@ public class PolynomialFind
             }
         }
 
+        if (q < 0) q *= -1;
         return q;
     }
 
-    private ArrayList<Integer> factorize(int number)
+    private ArrayList<Double> factorize(int number)
     {
-        // TODO: Find the problem
-        ArrayList<Integer> factorized = new ArrayList<>();
+        ArrayList<Double> factorized = new ArrayList<>();
         double value = number;
         double divideBy = number;
 
-        factorized.add(1);
+        factorized.add((double)1);
         while (value != 1 && divideBy >= 1)
         {
             if (new BasicArith(null).isPrime((int) divideBy))
             {
-                if (value / divideBy == (int)(value / divideBy))
+                if (value % divideBy == 0)
                 {
                     boolean isExist = false;
 
                     for (int i = 0; i < factorized.size(); i++)
                     {
-                        if (factorized.get(i) == value / divideBy)
+                        if (factorized.get(i) == divideBy)
                         {
                             isExist = true;
                             break;
                         }
                     }
 
-                    if (!isExist) factorized.add((int) divideBy);
+                    if (!isExist) factorized.add(divideBy);
 
                     value /= divideBy;
                 }
@@ -271,6 +274,47 @@ public class PolynomialFind
         }
 
         return factorized;
+    }
+
+    private ArrayList<Double> getPossibilities(ArrayList<Double> factorizedP, ArrayList<Double> factorizedQ)
+    {
+        ArrayList<Double> possibilities = new ArrayList<>();
+
+        for (double p: factorizedP)
+        {
+            for (double q: factorizedQ)
+            {
+                possibilities.add(p/q);
+                possibilities.add((-1)*(p/q));
+            }
+        }
+
+        return possibilities;
+    }
+
+    private ArrayList<Double> test(ArrayList<Double> possibilities)
+    {
+        ArrayList<Double> provided = new ArrayList<>();
+
+        for (int i = 0; i < possibilities.size(); i++)
+        {
+            ArrayList<String> temp = new ArrayList<>(equation);
+
+            for (int j = 0; j < temp.size(); j++)
+            {
+                if (temp.get(j).equals(respectedBy))
+                {
+                    temp.set(j, Double.toString(possibilities.get(i)));
+                }
+            }
+            // TODO: find the problem
+            String[] eq = new String[temp.size()];
+            for (int j = 0; j < temp.size(); j++) eq[j] = temp.get(j);
+            System.out.println(new BasicArith(eq).getAnswer());
+            if (new BasicArith(eq).getAnswer().equals("0")) provided.add(possibilities.get(i));
+        }
+
+        return provided;
     }
 
 }
